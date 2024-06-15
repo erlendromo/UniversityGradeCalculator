@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@1.9.7/dist/htmx.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+    <title>Calculator</title>
+</head>
+<style>
+    #container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        background-color: #f0ffff;
+        column-gap: 10em;
+        justify-content: space-evenly;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        row-gap: 5em;
+    }
+
+    .added {
+        background-color: #333333;
+        color: #eeeeee;
+        padding: 1em;
+        border-radius: 15px;
+    }
+
+    #registeredCourses {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1em;
+    }
+</style>
+<body>
+    <h1>University Grades Calculator</h1>
+    <p>This calculates the Grade Point Average (GPA) for University students.</p>
+
+    <div id="container">
+
+        <div class="left">
+            <div>
+                <h2>Add Course</h2>
+                <form id="inputForm" hx-post="/add-course/" hx-target="#registeredCourses" hx-swap="beforeend">
+                    <input type="text" name="code" id="code" placeholder="Code">
+                    <input type="text" name="name" id="name" placeholder="Name">
+                    <input type="text" name="grade" id="grade" placeholder="Grade (letter)">
+                    <input type="text" name="points" id="points" placeholder="Points">
+                    <button type="submit" id="submit">Submit</button>
+                </form>
+            </div>
+    
+            <div>
+                <h2>Average Grade</h2>
+                <p>Select which university you are attending:</p>
+                <form id="calcAvgGrade" hx-post="/calc-grades/" hx-target="#averageGrade">
+                    <select name="university" id="university" required>
+                        <option value="none">None</option>
+                        <option value="NTNU">NTNU</option>
+                    </select>
+                    <button type="submit">Calculate Average Grade</button>
+                </form>
+                <p id="averageGrade">Press button to calculate</p>
+            </div>
+        </div>
+
+        <div class="right">
+            <div id="registeredCourses">
+                <h2>Registered Courses</h2>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
