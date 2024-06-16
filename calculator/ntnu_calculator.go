@@ -1,6 +1,8 @@
 package calculator
 
-import "sync"
+import (
+	"sync"
+)
 
 type NTNUCalculator struct {
 	Courses map[string]*Course
@@ -18,6 +20,10 @@ func NewNTNUCalculator(c map[string]*Course) UniversityCalculator {
 // --- Grade is multiplied by the points of the course (weighted result).
 // --- All weighted grades are then divided by the total amount of points among all courses.
 func (n *NTNUCalculator) CalculateGPA() float64 {
+	if len(n.Courses) == 0 {
+		return 0
+	}
+
 	var sum float64
 	var totalPoints float64
 	var wg sync.WaitGroup
@@ -32,5 +38,5 @@ func (n *NTNUCalculator) CalculateGPA() float64 {
 	}
 
 	wg.Wait()
-	return sum / totalPoints
+	return RoundFloat((sum / totalPoints), 1)
 }

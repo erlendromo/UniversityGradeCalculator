@@ -11,7 +11,9 @@
     #container {
         display: flex;
         flex-wrap: wrap;
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
+        padding: 0.5em;
         background-color: #f0ffff;
         column-gap: 10em;
         justify-content: space-evenly;
@@ -46,10 +48,10 @@
             <div>
                 <h2>Add Course</h2>
                 <form id="inputForm" hx-post="/add-course/" hx-target="#registeredCourses" hx-swap="beforeend">
-                    <input type="text" name="code" id="code" placeholder="Code">
-                    <input type="text" name="name" id="name" placeholder="Name">
-                    <input type="text" name="grade" id="grade" placeholder="Grade (letter)">
-                    <input type="text" name="points" id="points" placeholder="Points">
+                    <input type="text" name="code" id="code" placeholder="Code" minlength="4" maxlength="20">
+                    <input type="text" name="name" id="name" placeholder="Name" minlength="4" maxlength="50">
+                    <input type="text" name="grade" id="grade" placeholder="Grade (letter)" minlength="1" maxlength="1">
+                    <input type="text" name="points" id="points" placeholder="Points" minlength="1" maxlength="4">
                     <button type="submit" id="submit">Submit</button>
                 </form>
             </div>

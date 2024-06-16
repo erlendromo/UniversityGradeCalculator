@@ -34,6 +34,11 @@ func AppendCourse(c *Course) {
 	courses[c.Code] = c
 }
 
+func CourseExists(code string) bool {
+	_, ok := courses[code]
+	return ok
+}
+
 func GetCalculator(u string) (calc UniversityCalculator, ok bool) {
 	ok = true
 
@@ -49,10 +54,15 @@ func GetCalculator(u string) (calc UniversityCalculator, ok bool) {
 
 func LetterEquivalent(grade float64) string {
 	for l, g := range GradeMap {
-		if g == math.Ceil(grade) {
+		if g == math.Round(grade) {
 			return l
 		}
 	}
 
 	return ""
+}
+
+func RoundFloat(val float64, precision uint) float64 {
+	ratio := math.Pow(10, float64(precision))
+	return math.Round(val*ratio) / ratio
 }
